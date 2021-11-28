@@ -2,23 +2,23 @@ package Classes;
 
 public class Aresta {
 
-    private Vertice verticeOrigem;
-    private Vertice verticeDestino;
+    private char verticeOrigem;
+    private char verticeDestino;
     private int verticePeso;
 
-    public Vertice getVerticeOrigem() {
+    public char getVerticeOrigem() {
         return verticeOrigem;
     }
 
-    public void setVerticeOrigem(Vertice verticeOrigem) {
+    public void setVerticeOrigem(char verticeOrigem) {
         this.verticeOrigem = verticeOrigem;
     }
 
-    public Vertice getVerticeDestino() {
+    public char getVerticeDestino() {
         return verticeDestino;
     }
 
-    public void setVerticeDestino(Vertice verticeDestino) {
+    public void setVerticeDestino(char verticeDestino) {
         this.verticeDestino = verticeDestino;
     }
 
@@ -29,4 +29,6 @@ public class Aresta {
     public void setVerticePeso(int verticePeso) {
         this.verticePeso = verticePeso;
     }
+    
+    
 }

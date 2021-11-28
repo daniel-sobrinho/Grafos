@@ -2,13 +2,13 @@ package Classes;
 
 public class Vertice {
 
-    private String identificador;
+    private char identificador;
 
-    public String getIdentificador() {
+    public char getIdentificador() {
         return identificador;
     }
 
-    public void setIdentificador(String identificador) {
+    public void setIdentificador(char identificador) {
         this.identificador = identificador;
-    }
+    }    
 }

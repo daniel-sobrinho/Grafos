@@ -32,4 +32,8 @@ public class Arquivo {
             return "";
         }
     }
+    
+    public static String removeEspacos(String texto){
+        return texto.replace(" ", "");
+    }
 }
