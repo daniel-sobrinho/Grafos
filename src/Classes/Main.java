@@ -64,11 +64,19 @@ public class Main {
                     String destino = Character.toString(aresta.getVerticeDestino());
                     String nomeAresta = origem + destino;
                     int peso = aresta.getVerticePeso();
-                    grafo.addEdge(nomeAresta , origem, destino);
+                    
+                    grafo.addEdge(nomeAresta , origem, destino).setAttribute("length", peso);
                 }
                 
             }
         }
+        
+        grafo.nodes().forEach(n -> n.setAttribute("label", "Vértice " + n.getId()));
+	grafo.edges().forEach(e -> e.setAttribute("label", "Peso " + (int) e.getNumber("length")));
+        
+        grafo.setAttribute("ui.stylesheet", "node { text-background-mode: rounded-box; text-background-color: red; text-alignment: under; text-padding: 3; text-offset: 3;}"
+                                          + "edge { text-background-mode: rounded-box; text-background-color: green; text-alignment: along; text-padding: 3;}");
+
         
         grafo.display();
     }        
