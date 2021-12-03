@@ -14,7 +14,6 @@ public class Main {
 		
 	Graph grafo = new SingleGraph("Grafo");
         
-//      Caminho do arquivo com os dados do Grafo
         String arquivo = "C:\\Users\\danie\\Documents\\NetBeansProjects\\Grafos\\src\\arquivos-grafo\\graph.txt";
         
         String textoDoArquivo = Arquivo.ReadFile(arquivo);
@@ -26,59 +25,16 @@ public class Main {
         if(textoDoArquivo.isEmpty()){
             System.out.println("Erro ao ler o arquivo");
         }else{
-            textoDoArquivo = Arquivo.removeEspacos(textoDoArquivo);
-            
-            for(int i=0; i<textoDoArquivo.length();i++){
-                char charTemp = textoDoArquivo.charAt(i);
-                String charAsString = Character.toString(charTemp);
-                valores.add(Integer.parseInt(charAsString));
-            }
-            
-            if(valores.get(0) > 0){
-                int ASCII = 64;
-                
-                for(int i=0; i<valores.get(0); i++){
-                    Vertice vertice = new Vertice();
-                    vertice.setIdentificador((char)(ASCII + (i+1)));
-                    vertices.add(vertice);
-                }
-                
-                if(valores.get(1) > 0){
-                    int position = 2;
-                    for(int i=0; i<valores.get(1); i++){
-                        Aresta aresta = new Aresta();
-                        aresta.setVerticeOrigem((char)(ASCII + valores.get(position)));
-                        aresta.setVerticeDestino((char)(ASCII + valores.get(position+1)));
-                        aresta.setVerticePeso(valores.get(position+2));
-                        arestas.add(aresta);
-                        position+=3;
-                    }
-                }
-                
-                for(Vertice vertice : vertices){
-                    grafo.addNode(Character.toString(vertice.getIdentificador()));
-                }
-                
-                for(Aresta aresta : arestas){
-                    String origem = Character.toString(aresta.getVerticeOrigem());
-                    String destino = Character.toString(aresta.getVerticeDestino());
-                    String nomeAresta = origem + destino;
-                    int peso = aresta.getVerticePeso();
-                    
-                    grafo.addEdge(nomeAresta , origem, destino).setAttribute("length", peso);
-                }
-                
-            }
+           vertices = Arquivo.converterTexto(textoDoArquivo);
+           
+           for(Vertice vertice : vertices){
+               System.out.println("Vertice: " + vertice.getIdentificador());
+               for (Aresta aresta : vertice.getAresta()) {
+                   System.out.println("Origem: " + aresta.getVerticeOrigem() + " Destino: " + aresta.getVerticeDestino() + " Peso: " + aresta.getVerticePeso());
+               }
+               System.out.println("-------------------");
+           }          
         }
-        
-        grafo.nodes().forEach(n -> n.setAttribute("label", "Vértice " + n.getId()));
-	grafo.edges().forEach(e -> e.setAttribute("label", "Peso " + (int) e.getNumber("length")));
-        
-        grafo.setAttribute("ui.stylesheet", "node { text-background-mode: rounded-box; text-background-color: red; text-alignment: under; text-padding: 3; text-offset: 3;}"
-                                          + "edge { text-background-mode: rounded-box; text-background-color: green; text-alignment: along; text-padding: 3;}");
-
-        
-        grafo.display();
-    }        
+    }
 }
     
