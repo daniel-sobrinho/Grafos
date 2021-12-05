@@ -6,79 +6,79 @@ import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
 public class Main {
-    /*
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
-		
-	Graph grafo = new SingleGraph("Grafo");
-        
-//      Caminho do arquivo com os dados do Grafo
-        String arquivo = "C:\\Users\\danie\\Documents\\NetBeansProjects\\Grafos\\src\\arquivos-grafo\\graph.txt";
-        
+
+        Graph grafo = new MultiGraph("Grafo");
+
+        String arquivo = "C:\\Users\\danie\\Documents\\NetBeansProjects\\Grafos\\src\\Assets\\graph.txt";
+
         String textoDoArquivo = Arquivo.ReadFile(arquivo);
-        
-        ArrayList<Vertice> vertices = new ArrayList<>();
-        ArrayList<Aresta> arestas = new ArrayList<>();
-        ArrayList<Integer> valores = new ArrayList<>();
-        
-        if(textoDoArquivo.isEmpty()){
+
+        ArrayList<Dijkstra> vertices = new ArrayList<>();
+        ArrayList<Dijkstra> dijkstra = new ArrayList<>();
+
+        if (textoDoArquivo.isEmpty()) {
             System.out.println("Erro ao ler o arquivo");
-        }else{
-            textoDoArquivo = Arquivo.removeEspacos(textoDoArquivo);
-            
-            for(int i=0; i<textoDoArquivo.length();i++){
-                char charTemp = textoDoArquivo.charAt(i);
-                String charAsString = Character.toString(charTemp);
-                valores.add(Integer.parseInt(charAsString));
-            }
-            
-            if(valores.get(0) > 0){
-                int ASCII = 64;
-                
-                for(int i=0; i<valores.get(0); i++){
-                    Vertice vertice = new Vertice();
-                    vertice.setIdentificador((char)(ASCII + (i+1)));
-                    vertices.add(vertice);
-                }
-                
-                if(valores.get(1) > 0){
-                    int position = 2;
-                    for(int i=0; i<valores.get(1); i++){
-                        Aresta aresta = new Aresta();
-                        aresta.setVerticeOrigem((char)(ASCII + valores.get(position)));
-                        aresta.setVerticeDestino((char)(ASCII + valores.get(position+1)));
-                        aresta.setVerticePeso(valores.get(position+2));
-                        arestas.add(aresta);
-                        position+=3;
+        } else {
+            vertices = Arquivo.converterTexto(textoDoArquivo);
+
+            int verticeInicial = 1;
+            vertices.get(verticeInicial - 1).setDistancia(0);
+
+            int menorCaminho = 99999;
+            int verticeAtual = 0;
+
+            ArrayList<Aresta> arestas = new ArrayList<>();
+
+            while (vertices.size() > 0) {
+                for (Dijkstra vertice : vertices) {
+                    if (vertice.getDistancia() < menorCaminho) {
+                        verticeAtual = vertices.indexOf(vertice);
                     }
                 }
-                
-                for(Vertice vertice : vertices){
-                    grafo.addNode(Character.toString(vertice.getIdentificador()));
-                }
-                
-                for(Aresta aresta : arestas){
-                    String origem = Character.toString(aresta.getVerticeOrigem());
-                    String destino = Character.toString(aresta.getVerticeDestino());
-                    String nomeAresta = origem + destino;
-                    int peso = aresta.getVerticePeso();
-                    
-                    grafo.addEdge(nomeAresta , origem, destino).setAttribute("length", peso);
-                }
-                
-            }
-        }
-        
-        grafo.nodes().forEach(n -> n.setAttribute("label", "Vértice " + n.getId()));
-	grafo.edges().forEach(e -> e.setAttribute("label", "Peso " + (int) e.getNumber("length")));
-        
-        grafo.setAttribute("ui.stylesheet", "node { text-background-mode: rounded-box; text-background-color: red; text-alignment: under; text-padding: 3; text-offset: 3;}"
-                                          + "edge { text-background-mode: rounded-box; text-background-color: green; text-alignment: along; text-padding: 3;}");
 
-        
-        grafo.display();
-    }        
+                arestas = vertices.get(verticeAtual).getAresta();
+
+                for (Aresta aresta : arestas) {
+                    int distancia = vertices.get(verticeAtual).getDistancia() + aresta.getPeso();
+                    int buscar = aresta.getVerticeDestino();
+                    for (Dijkstra vertice : vertices) {
+                        int verticeID = vertice.getIdentificador();
+                        if(verticeID == buscar){
+                            buscar = vertices.indexOf(vertice);
+                        }
+                    }
+                    
+                    if(buscar < vertices.size()){
+                        if(vertices.get(buscar).getDistancia() > distancia){
+                            vertices.get(buscar).setDistancia(distancia);
+                            vertices.get(buscar).setPredecessor(vertices.get(buscar).getIdentificador());
+                        }
+                    }
+                    
+                    
+                }
+
+                dijkstra.add(vertices.get(verticeAtual));
+                vertices.remove(verticeAtual);
+
+            }
+
+            System.out.println("-------------------------------------------");
+            for (Dijkstra vertice : dijkstra) {
+                System.out.println("Vertice: " + vertice.getIdentificador() + " | Predecessor: " + vertice.getPredecessor() + " Distancia: " + vertice.getDistancia());
+            }
+
+//            for (Dijkstra vertice : vertices) {
+//                System.out.println("ID: " + vertice.getIdentificador());
+//                for (Aresta aresta : vertice.getAresta()) {
+//                    System.out.println("Origem: " + aresta.getVerticeOrigem() + " Destino: " + aresta.getVerticeDestino() + " Peso: " + aresta.getPeso());
+//                }
+//                System.out.println("-------------------------------------------");
+//            }
+
+        }
+    }
 }
-    

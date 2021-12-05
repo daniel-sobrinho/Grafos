@@ -2,33 +2,33 @@ package Classes;
 
 public class Aresta {
 
-    private char verticeOrigem;
-    private char verticeDestino;
-    private int verticePeso;
+    private int verticeOrigem;
+    private int verticeDestino;
+    private int Peso;
 
-    public char getVerticeOrigem() {
+    public int getVerticeOrigem() {
         return verticeOrigem;
     }
 
-    public void setVerticeOrigem(char verticeOrigem) {
+    public void setVerticeOrigem(int verticeOrigem) {
         this.verticeOrigem = verticeOrigem;
     }
 
-    public char getVerticeDestino() {
+    public int getVerticeDestino() {
         return verticeDestino;
     }
 
-    public void setVerticeDestino(char verticeDestino) {
+    public void setVerticeDestino(int verticeDestino) {
         this.verticeDestino = verticeDestino;
     }
 
-    public int getVerticePeso() {
-        return verticePeso;
+    public int getPeso() {
+        return Peso;
     }
 
-    public void setVerticePeso(int verticePeso) {
-        this.verticePeso = verticePeso;
+    public void setPeso(int Peso) {
+        this.Peso = Peso;
     }
-    
+
     
 }
