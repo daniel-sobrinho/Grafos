@@ -46,7 +46,7 @@ public class Arquivo {
 
         for (int i = 0; i < valores.get(0); i++) {
             Dijkstra vertice = new Dijkstra();
-            vertice.setIdentificador(i+1);
+            vertice.setIdentificador(i + 1);
             vertices.add(vertice);
         }
 
@@ -62,7 +62,7 @@ public class Arquivo {
             aresta.setVerticeDestino(destino);
             aresta.setPeso(peso);
 
-            vertices.get(origem-1).addAresta(aresta);
+            vertices.get(origem - 1).addAresta(aresta);
 
             position += 3;
         }
