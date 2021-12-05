@@ -3,10 +3,12 @@ package Classes;
 public class Dijkstra extends Vertice{
     private int predecessor;
     private int distancia;
+    private boolean visitado;
     
     Dijkstra(){
         predecessor = -1;
         distancia = 99999;
+        visitado = false;
     }
 
     public int getPredecessor() {
@@ -23,5 +25,13 @@ public class Dijkstra extends Vertice{
 
     public void setDistancia(int distancia) {
         this.distancia = distancia;
+    }
+
+    public boolean isVisitado() {
+        return visitado;
+    }
+
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
     }
 }

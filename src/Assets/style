@@ -1,0 +1,39 @@
+graph {
+    
+}
+
+node {
+    size: 100px, 50px;
+    fill-color: white;
+    stroke-mode: plain;
+    stroke-color: black;
+    stroke-width: 4;
+    text-size: 10;
+}
+
+edge {
+    text-alignment: center;
+    text-background-color: white;
+    text-background-mode: rounded-box;
+    text-padding: 3;
+    text-size: 18;
+    size: 2;
+    arrow-size: 10;
+}
+
+node.buscando{
+    fill-color: gold;
+}
+
+node.relaxando{
+    fill-color: pink;
+}
+
+edge.buscando{
+    fill-color: red;
+    size: 4;
+}
+
+node.encontrou{
+    fill-color: green;
+}
