@@ -5,7 +5,11 @@ import java.util.ArrayList;
 public class Vertice {
 
     private int identificador;
-    private ArrayList<Aresta> aresta = new ArrayList<>();
+    private ArrayList<Aresta> aresta;
+
+    public Vertice() {
+        this.aresta = new ArrayList<>();
+    }
     
     public int getIdentificador() {
         return identificador;

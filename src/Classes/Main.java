@@ -12,7 +12,7 @@ public class Main {
 
         Graph grafo = new MultiGraph("Grafo");
 
-        String arquivo = "C:\\Users\\danie\\Documents\\NetBeansProjects\\Grafos\\src\\Assets\\graph.txt";
+        String arquivo = "..\\Grafos\\src\\Assets\\graph.txt";
 
         String textoDoArquivo = Arquivo.ReadFile(arquivo);
 
@@ -36,6 +36,7 @@ public class Main {
                 for (Dijkstra vertice : vertices) {
                     if (vertice.getDistancia() < menorCaminho) {
                         verticeAtual = vertices.indexOf(vertice);
+                        menorCaminho = vertice.getDistancia();
                     }
                 }
 
@@ -46,39 +47,45 @@ public class Main {
                     int buscar = aresta.getVerticeDestino();
                     for (Dijkstra vertice : vertices) {
                         int verticeID = vertice.getIdentificador();
-                        if(verticeID == buscar){
+                        if (verticeID == buscar) {
                             buscar = vertices.indexOf(vertice);
                         }
                     }
-                    
-                    if(buscar < vertices.size()){
-                        if(vertices.get(buscar).getDistancia() > distancia){
+
+                    if (buscar < vertices.size()) {
+                        if (vertices.get(buscar).getDistancia() > distancia) {
                             vertices.get(buscar).setDistancia(distancia);
-                            vertices.get(buscar).setPredecessor(vertices.get(buscar).getIdentificador());
+                            vertices.get(buscar).setPredecessor(vertices.get(verticeAtual).getIdentificador());
                         }
                     }
-                    
-                    
+
                 }
 
                 dijkstra.add(vertices.get(verticeAtual));
                 vertices.remove(verticeAtual);
+                menorCaminho = 99999;
 
             }
 
-            System.out.println("-------------------------------------------");
+            final int ASCII = 64;
+
             for (Dijkstra vertice : dijkstra) {
-                System.out.println("Vertice: " + vertice.getIdentificador() + " | Predecessor: " + vertice.getPredecessor() + " Distancia: " + vertice.getDistancia());
+                String identificadorVertice = (Character.toString((char)(ASCII + vertice.getIdentificador())));
+                grafo.addNode(identificadorVertice);
             }
 
-//            for (Dijkstra vertice : vertices) {
-//                System.out.println("ID: " + vertice.getIdentificador());
-//                for (Aresta aresta : vertice.getAresta()) {
-//                    System.out.println("Origem: " + aresta.getVerticeOrigem() + " Destino: " + aresta.getVerticeDestino() + " Peso: " + aresta.getPeso());
-//                }
-//                System.out.println("-------------------------------------------");
-//            }
+            for (Dijkstra vertice : dijkstra) {
+                for (Aresta aresta : vertice.getAresta()) {
+                    String Origem = (Character.toString((char)(ASCII + aresta.getVerticeOrigem())));
+                    String Destino = (Character.toString((char)(ASCII + aresta.getVerticeDestino())));
 
+                    grafo.addEdge(Origem + Destino, Origem, Destino, true).setAttribute("length", aresta.getPeso());
+                }
+            }
+                grafo.nodes().forEach(n -> n.setAttribute("label", n.getId()));
+		grafo.edges().forEach(e -> e.setAttribute("label", "" + (int) e.getNumber("length")));
+                grafo.setAttribute("ui.stylesheet", "url('file:..\\\\Grafos\\\\src\\\\Assets\\\\style')");
+                grafo.display();
         }
     }
 }

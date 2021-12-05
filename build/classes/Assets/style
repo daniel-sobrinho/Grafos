@@ -1,0 +1,21 @@
+graph {
+    
+}
+
+node {
+    size: 35px, 35px;
+    fill-color: white;
+    stroke-mode: plain;
+    stroke-color: black;
+    text-size: 14;
+}
+
+edge {
+    text-alignment: center;
+    text-background-color: white;
+    text-background-mode: rounded-box;
+    text-padding: 3;
+    text-size: 18;
+    size: 2;
+    arrow-size: 10;
+}
