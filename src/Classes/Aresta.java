@@ -4,7 +4,7 @@ public class Aresta {
 
     private int verticeOrigem;
     private int verticeDestino;
-    private int verticePeso;
+    private int Peso;
 
     public int getVerticeOrigem() {
         return verticeOrigem;
@@ -22,11 +22,13 @@ public class Aresta {
         this.verticeDestino = verticeDestino;
     }
 
-    public int getVerticePeso() {
-        return verticePeso;
+    public int getPeso() {
+        return Peso;
     }
 
-    public void setVerticePeso(int verticePeso) {
-        this.verticePeso = verticePeso;
+    public void setPeso(int Peso) {
+        this.Peso = Peso;
     }
+
+    
 }
