@@ -13,7 +13,7 @@ public class Main {
 
         Graph grafo = new MultiGraph("Grafo");
 
-        String arquivo = "..\\Grafos\\src\\Assets\\graph.txt";
+        String arquivo = "..\\Grafos\\src\\Assets\\graph2.txt";
 
         String textoDoArquivo = Arquivo.ReadFile(arquivo);
 
